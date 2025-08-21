@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <!-- Root element -->
+  <xs:element name="catalog">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="book" type="BookType" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <!-- Book complex type -->
+  <xs:complexType name="BookType">
+    <xs:sequence>
+      <xs:element name="author" type="xs:string"/>
+      <xs:element name="title" type="xs:string"/>
+      <xs:element name="genre" type="xs:string"/>
+      <xs:element name="price" type="PriceType"/>
+      <xs:element name="publish_date" type="xs:date"/>
+      <xs:element name="description" type="xs:string"/>
+	  <xs:element name="custom_code" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute name="id" type="BookIdType" use="required"/>
+  </xs:complexType>
+
+  <!-- Price with 2 fractional digits (e.g., 44.95) -->
+  <xs:simpleType name="PriceType">
+    <xs:restriction base="xs:decimal">
+      <xs:totalDigits value="6"/>
+      <xs:fractionDigits value="2"/>
+      <xs:minInclusive value="0.00"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- Book ID like 'bk101' -->
+  <xs:simpleType name="BookIdType">
+    <xs:restriction base="xs:int">
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>
